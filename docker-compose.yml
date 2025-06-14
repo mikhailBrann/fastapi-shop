@@ -1,0 +1,43 @@
+version: '3.7'
+services:
+  database:
+    container_name: ${APP_NAME}_db
+    image: postgres:11.0-alpine
+    networks:
+      - app-network
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    environment:
+      DEBUG: 'false'
+    env_file:
+      - .env
+
+  redis:
+    container_name: ${APP_NAME}_redis
+    depends_on:
+      - database
+    image: redis:alpine
+
+  app:
+    container_name: ${APP_NAME}_app
+    depends_on:
+      - redis
+    build:
+      context: app
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./app:/app
+    command: sh ./boot.sh
+    env_file:
+      - .env
+    ports:
+      - $APP_PORT:$APP_PORT
+    networks:
+      - app-network
+
+volumes:
+  static_volume:
+
+networks:
+  app-network:
+    driver: bridge
