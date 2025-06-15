@@ -31,3 +31,6 @@ POST /auth/get_token
   "password": "string" # пароль для доступа к api ACCESS_API_PASSWORD (.env)
 }
 ```
+
+## документация api
+документация api доступна по адресу /docs
