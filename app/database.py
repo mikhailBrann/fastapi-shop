@@ -1,6 +1,6 @@
 from typing import Annotated
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
+from sqlalchemy.orm import sessionmaker
 from fastapi import Depends
 
 from config import APP_CONFIG

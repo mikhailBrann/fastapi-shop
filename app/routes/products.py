@@ -7,7 +7,7 @@ from schemas.product_update_sheme import ProductUpdateScheme
 
 router = APIRouter()
 
-@router.get("/")
+@router.get("/", summary="Все товары")
 async def get_products(session: SESSION_DEPENDENCY):
     service = ProductService(session)
     products = await service.get_all()
@@ -15,7 +15,7 @@ async def get_products(session: SESSION_DEPENDENCY):
     return {"success": True, "data": products}
 
 
-@router.get("/{product_id}")
+@router.get("/{product_id}", summary="Товар по ID")
 async def get_product(product_id: int, session: SESSION_DEPENDENCY):
     service = ProductService(session)
     product = await service.get_by_id(product_id)
@@ -26,7 +26,7 @@ async def get_product(product_id: int, session: SESSION_DEPENDENCY):
     return {"success": True, "data": product}
 
 
-@router.post("/")
+@router.post("/", summary="Добавить товар")
 async def create_product(data: ProductAddSheme, session: SESSION_DEPENDENCY):
     service = ProductService(session)
 
@@ -51,7 +51,7 @@ async def create_product(data: ProductAddSheme, session: SESSION_DEPENDENCY):
         }
 
 
-@router.patch("/{product_id}")
+@router.patch("/{product_id}", summary="Изменить товар")
 async def update_product(product_id: int, data: ProductUpdateScheme, session: SESSION_DEPENDENCY):
     service = ProductService(session)
 
@@ -83,7 +83,7 @@ async def update_product(product_id: int, data: ProductUpdateScheme, session: SE
         }
 
    
-@router.delete("/{product_id}")
+@router.delete("/{product_id}", summary="Удалить товар")
 async def delete_product(product_id: int, session: SESSION_DEPENDENCY):
     service = ProductService(session)
 
